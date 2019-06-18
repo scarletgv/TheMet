@@ -1,0 +1,14 @@
+Objeto(-ID-,IDpaís,IDdpt,IDprt,número,nome,título,ano,materiais,classificação,dimensões)
+IDpaís REFERENCIA País
+IDdpt REFERENCIA Departamento
+IDprt REFERENCIA Proprietário
+Autoria(-IDobj-,-IDart-)
+IDobj REFERENCIA Objeto
+IDart REFERENCIA Artista
+Artista(-ID-,nome,biografia,nascimento,óbito,país)
+país REFERENCIA País
+País(-ID-,nome)
+Proprietário(-ID-,nome)
+Departamento(-ID-,nome)
+Imagem(-ID-,IDobj,img)
+IDobj REFERENCIA Objeto
