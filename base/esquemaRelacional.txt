@@ -1,27 +1,25 @@
-Objeto(-ID-,IDdpt,nome,título,ano,materiais,classificação,dimensões)
-IDpaís REFERENCIA País
-IDdpt REFERENCIA Departamento
+Object(-ObjectID-,DepartmentID,ObjectName,Title,ObjectDate,Medium,Classification,Dimensions)
+DepartmentID REFERENCIA Department
 
-Autoria(-IDobj-,-IDart-)
-IDobj REFERENCIA Objeto
-IDart REFERENCIA Artista
+Artist-Object(-ObjectID-,-ArtistID-)
+ObjectID REFERENCIA Object
+ArtistID REFERENCIA Artist
 
-Artista(-ID-,nome)
-país REFERENCIA País
+Artist(-ArtistID-,Name)
 
-País(-ID-,nome)
+Country(-CountryID-,Country)
 
-País-Obj(-IDpais-,-IDobj-)
-IDpais REFERENCIA País
-IDobj REFERENCIA Objeto
+Country-Object(-CountryID-,-ObjectID-)
+CountryID REFERENCIA Country
+ObjectID REFERENCIA Object
 
-Proprietário(-ID-,nome)
+Donor(-DonorID-,Donor)
 
-Doação(-IDdoador-,-IDobj-,ano)
-IDdoador REFERENCIA Proprietário
-IDobj REFERENCIA Objeto
+Donor-Object(-DonorID-,-ObjectID-,Year)
+DonorID REFERENCIA Donor
+ObjectID REFERENCIA Object
 
-Departamento(-ID-,nome)
+Department(-DepartmentID-,Department,Description)
 
-Imagem(-ID-,IDobj,img)
-IDobj REFERENCIA Objeto
+Image(-ImageID-,ObjectID,imageURL)
+ObjectID REFERENCIA Object
