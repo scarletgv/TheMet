@@ -1,0 +1,143 @@
+CREATE DATABASE METMUSEUM;
+
+
+#--------------------------------------------------------- ARTIST
+# A maior palavra de artist.name tem 129 caracteres
+
+CREATE TABLE ARTIST(
+	ARTISTID INT NOT NULL,
+	NAME VARCHAR (150) NOT NULL,
+	PRIMARY KEY (ARTISTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/artist.csv' 
+	INTO TABLE ARTIST
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(ARTISTID, NAME);
+
+#--------------------------------------------------------- COUNTRY
+# A maior palavra de country.country tem 32 caracteres
+
+CREATE TABLE COUNTRY(
+	COUNTRYID INT NOT NULL,
+	COUNTRY VARCHAR (50) NOT NULL,
+	PRIMARY KEY (COUNTRYID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/country.csv' 
+	INTO TABLE COUNTRY
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(COUNTRYID, COUNTRY);
+
+#--------------------------------------------------------- DEPARTMENT
+# A maior palavra de department.department tem 41 caracteres
+
+CREATE TABLE DEPARTMENT(
+	DEPARTMENTID INT NOT NULL,
+	DEPARTMENT VARCHAR (50) NOT NULL,
+	DESCRIPTION TEXT,
+	PRIMARY KEY (DEPARTMENTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/department.csv' 
+	INTO TABLE DEPARTMENT
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(DEPARTMENTID, DEPARTMENT, DESCRIPTION);
+
+#--------------------------------------------------------- DONOR
+# A maior palavra de donor.donor tem 1139 caracteres
+
+CREATE TABLE DONOR(
+	DONORID INT NOT NULL,
+	DONOR VARCHAR (1150) NOT NULL,
+	PRIMARY KEY (DONORID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/donor.csv' 
+	INTO TABLE DONOR
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(DONORID, DONOR);
+
+#--------------------------------------------------------- OBJECT
+# A maior palavra de object.objectname tem 82 caracteres
+# A maior palavra de object.title tem 839 caracteres
+# A maior palavra de object.objectdate tem 241 caracteres
+# A maior palavra de object.medium tem 8249 caracteres
+# A maior palavra de object.dimensions tem 2172 caracteres
+# A maior palavra de object.classification tem 74 caracteres
+
+CREATE TABLE OBJECT(
+	DEPARTMENTID INT NOT NULL,
+	OBJECTID INT NOT NULL,
+	OBJECTNAME VARCHAR (100),
+	TITLE VARCHAR (1000),
+	OBJECTDATE VARCHAR (250),
+	MEDIUM TEXT,
+	DIMENSIONS VARCHAR (2000),
+	CLASSIFICATION VARCHAR (100),
+	PRIMARY KEY (OBJECTID),
+	FOREIGN KEY (DEPARTMENTID) REFERENCES DEPARTMENT (DEPARTMENTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/object.csv' 
+	INTO TABLE OBJECT
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(DEPARTMENTID, OBJECTID, OBJECTNAME, TITLE, OBJECTDATE, MEDIUM, DIMENSIONS, CLASSIFICATION);
+
+#--------------------------------------------------------- ARTIST_OBJECT
+
+CREATE TABLE ARTIST_OBJECT (
+	ARTISTID INT NOT NULL,
+	OBJECTID INT NOT NULL,
+	FOREIGN KEY (ARTISTID) REFERENCES ARTIST (ARTISTID),
+	FOREIGN KEY (OBJECTID) REFERENCES OBJECT (OBJECTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/artist-object.csv' 
+	INTO TABLE ARTIST_OBJECT
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(ARTISTID, OBJECTID);
+
+#--------------------------------------------------------- COUNTRY_OBJECT
+
+CREATE TABLE COUNTRY_OBJECT (
+	COUNTRYID INT NOT NULL,
+	OBJECTID INT NOT NULL,
+	FOREIGN KEY (COUNTRYID) REFERENCES COUNTRY (COUNTRYID),
+	FOREIGN KEY (OBJECTID) REFERENCES OBJECT (OBJECTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/country-object.csv' 
+	INTO TABLE COUNTRY_OBJECT
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(COUNTRYID, OBJECTID);
+
+#--------------------------------------------------------- DONOR_OBJECT
+
+CREATE TABLE DONOR_OBJECT (
+	DONORID INT NOT NULL,
+	OBJECTID INT NOT NULL,
+	FOREIGN KEY (DONORID) REFERENCES DONOR (DONORID),
+	FOREIGN KEY (OBJECTID) REFERENCES OBJECT (OBJECTID)
+);
+
+LOAD DATA LOCAL INFILE '/Users/carolinnerabbi/Desktop/intro BD/TP2/The Met Tabelas/donor-object.csv' 
+	INTO TABLE DONOR_OBJECT
+	FIELDS TERMINATED BY ',' 
+	LINES TERMINATED BY '\n' 
+	IGNORE 1 ROWS
+	(DONORID, OBJECTID);
