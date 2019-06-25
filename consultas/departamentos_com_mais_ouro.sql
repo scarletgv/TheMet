@@ -1,11 +1,14 @@
 #Ordena os departamentos pela quantidade de ojetos de ouro
 SELECT 
-    department, count(*) as numero_de_objetos_de_ouro
+    department, COUNT(*) AS numero_de_objetos_de_ouro
 FROM
     department
         NATURAL JOIN
-    (select objectid, departmentid
-    from object 
-    where object.medium = "Gold") as objetos_de_ouro
+    (SELECT 
+        objectid, departmentid
+    FROM
+        object
+    WHERE
+        object.medium = 'Gold') AS objetos_de_ouro
 GROUP BY department
-order bY numero_de_objetos_de_ouro DESC
+ORDER BY numero_de_objetos_de_ouro DESC

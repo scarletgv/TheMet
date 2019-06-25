@@ -2,7 +2,7 @@
 #As datas estão muito "sujas", acho que não vai ser legal esse
 
 SELECT 
-    objectdate
+     title, objectdate
 FROM
     object
         NATURAL JOIN
