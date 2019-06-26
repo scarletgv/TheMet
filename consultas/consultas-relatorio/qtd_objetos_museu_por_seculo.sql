@@ -1,0 +1,5 @@
+SELECT SUBSTRING(object.OBJECTDATE, 1, 2) AS Periodo, COUNT(0) AS Objetos
+	FROM object
+		WHERE object.OBJECTDATE > 1000 AND object.OBJECTDATE < 2018
+GROUP BY Periodo
+ORDER BY Periodo
